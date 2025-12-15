@@ -57,8 +57,54 @@ def insert_sales_2(values):
 sale1 = (9,20)
 insert_sales(sale1)
 
+def available_stock(pid):
+    cur.execute("select sum(stock_quantity) from stock where pid = %s", (pid,))
+    total_stock = cur.fetchone() or 0
 
+    # cur.execute(f'select sum(quantity) from sales where pid = {pid}')
+    cur.execute("select sum(quantity) from sales where pid = %s", (pid,))
 
+    total_sales = cur.fetchone() or 0
+
+    return total_stock - total_sales
+
+def fetch_stock():
+    cur.execute("select * from stock")
+    stock = cur.fetchall()
+    return stock
+
+def add_stock(values):
+    cur.execute(f"insert into stock(pid,stock_quantity)values{values}")
+    conn.commit()
+
+# Insert Users
+def insert_user(users):
+    cur.execute(f"insert into users(full_name,email,phone_number,password)values{users}")
+    conn.commit()
+
+# sales_per_product
+def sales_per_product():
+    cur.execute(
+        select products.name as p_name, sum(sales.quantity * products.selling_price) as total_sales
+        from products inner join sales on products.id = sales.pid group by(p_name);
+    )
+
+    product_sales = cur.fetchall()
+    return product_sales
+
+# sales_per_day
+        
+# profit_per_product
+def profit_per_product():
+    cur.execute(
+    select products.name as p_name ,sum((products.selling_price - products.buying_price) * sales.quantity) as profit from
+    sales inner join products on sales.pid = products.id group by(p_name);
+    )
+
+    product_profit = cur.fetchall()
+    return product_profit
+    
+# profit_per_day
 
 
 

@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for
-from database import get_products,get_sales,insert_products,insert_sales
+from database import get_products,get_sales,insert_products,insert_sales,available_stock,fetch_stock,add_stock
 
 
 #Flask instance
@@ -46,11 +46,39 @@ def fetch_sales():
 # Posting sales
 @app.route('/add_sales',methods=['GET','POST'])
 def add_sales():
-    product_id = request.form["product_id"]
-    quantity = request.form["quantity"]
-    new_sale = (product_id,quantity)
+    pid = request.form["pid"]
+    quantity = int(request.form["quantity"])
+
+    check_stock = available_stock(pid)
+
+    if check_stock < quantity:
+        print("Insufficient stock!")
+        return redirect(url_for('fetch_sales'))
+    
+    new_sale = (pid,quantity)
     insert_sales(new_sale)
+
     return redirect(url_for('fetch_sales'))
+
+
+# Stock route
+@app.route('/stock')
+def get_stock():
+    stock = fetch_stock()
+    products = get_products()
+    return render_template("stock.html",stock = stock,products = products)
+
+# Adding stock
+@app.route('/add_stock',methods=['GET','POST'])
+def stock():
+    pid = request.form["pid"]
+    stock = int(request.form["stock"])
+
+    new_stock = (pid,stock)
+    add_stock(new_stock)
+
+    print("Stock added")
+    return redirect(url_for('stock'))
 
 
 @app.route('/dashboard')
