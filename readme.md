@@ -472,43 +472,78 @@ def insert_user(user_details):
   -> sales_per_product
 
   def sales_per_product():
-    cur.execute("""
+    cur.execute(
         select products.name as p_name, sum(sales.quantity * products.selling_price) as total_sales
         from products join sales on products.id = sales.pid group by(p_name);
-    """)
+    )
     product_sales = cur.fetchall()
     return product_sales
 
   -> sales_per_day
 
   def sales_per_day():
-    cur.execute("""
+    cur.execute(
     select date(sales.created_at) as date, sum(products.selling_price * sales.quantity) as
     total_sales from products inner join sales on sales.pid = products.id group by(date);
-    """)
+    )
     daily_sales = cur.fetchall()
     return daily_sales
         
   -> profit_per_product
 
   def profit_per_product():
-    cur.execute("""
+    cur.execute(
     select products.name as p_name ,sum((products.selling_price - products.buying_price) * sales.quantity) as profit from
     sales join products on sales.pid = products.id group by(p_name);
-    """)
+    )
     product_profit = cur.fetchall()
     return product_profit
 
   -> profit_per_day
 
   def profit_per_day():
-    cur.execute("""
+    cur.execute(
         select date(sales.created_at) as date, sum((products.selling_price - products.buying_price)* sales.quantity) as 
         profit from sales join products on products.id = sales.pid group by(date);
-    """)
+    )
     daily_profit = cur.fetchall()
     return daily_profit
 
   N/B:-each of the above is to appear in its own function
 
 4.Continue building and styling your UI
+
+post a product -> 50 -> macbook 
+no stock added on macbook - null
+no sale made on macbook - null
+
+0 vs null/ none
+
+**Flashing**
+- A feedback mechanism in form of one time notifications to the user based on some action 
+- flash messages
+- These flash messages are stored in the server in session storage
+**Session**
+-> Any data stored in session storage has to use a secret key to secure it 
+-> The secret key signs the data stored in session , securing it 
+
+**Message Categories**
+1.Success - successfull responses e.g. product added successfully - green
+2.Danger / Error - error messages e.g insufficient stock - red
+3.Warning - warning - e,g stock depleting - yellow
+4.Info - general info e.g. offers - blue
+
+Flash messages have 2 parts:
+a) Message - the actual text feedback 
+b) Category - broader class of messages grouped by type
+-> we use flash() imported from flask to display messages from flash messages 
+
+   
+       <----GET----
+Client ----POST---> Server ----------- DB
+                             psycopg2
+key value pairs     python         list of tuples
+in string format
+
+(100) - just an integer
+(100,) - tuple with one value

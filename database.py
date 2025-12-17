@@ -1,13 +1,15 @@
 import psycopg2
 
+# Establish database connection
 conn = psycopg2.connect(host='localhost',port='5433',user='postgres',password='postgres',dbname='myduka_db')
-
+# cur object
 cur = conn.cursor()
 
 """ cur.execute("select * from products")
 products = cur.fetchall()
 # print(products) """
 
+# Get the products
 def get_products():
     cur.execute("select * from products")
     products = cur.fetchall()
@@ -21,6 +23,7 @@ print(products)
 conn.commit()
 print(products) """
 
+# Insert products
 def insert_products(values):
     cur.execute(f"insert into products(name,buying_price,selling_price)values{values}")
     conn.commit()
@@ -30,8 +33,7 @@ product2 = ('hp',50000,60000)
 insert_products(product1)
 insert_products(product2)
 
-#2  with tasks
-
+#2 Insert sales with tasks
 def insert_sales(values):
     cur.execute(f"insert into sales(pid,quantity)values{values}")
     conn.commit()
@@ -41,6 +43,7 @@ sales2=(1,25)
 insert_sales(sales1)
 insert_sales(sales2)
 
+# Get sales
 def get_sales():
     cur.execute("select * from sales")
     sales = cur.fetchall()
@@ -57,31 +60,42 @@ def insert_sales_2(values):
 sale1 = (9,20)
 insert_sales(sale1)
 
+# Get available stock
 def available_stock(pid):
     cur.execute("select sum(stock_quantity) from stock where pid = %s", (pid,))
-    total_stock = cur.fetchone() or 0
+    total_stock = cur.fetchone()[0] or 0
 
     # cur.execute(f'select sum(quantity) from sales where pid = {pid}')
     cur.execute("select sum(quantity) from sales where pid = %s", (pid,))
 
-    total_sales = cur.fetchone() or 0
+    total_sales = cur.fetchone()[0] or 0
 
     return total_stock - total_sales
 
+# Fetching stock
 def fetch_stock():
     cur.execute("select * from stock")
     stock = cur.fetchall()
     return stock
 
+# Inserting stock
 def add_stock(values):
     cur.execute(f"insert into stock(pid,stock_quantity)values{values}")
     conn.commit()
 
+
 # Insert Users
-def insert_user(users):
-    cur.execute(f"insert into users(full_name,email,phone_number,password)values{users}")
+def insert_users(users_details):
+    cur.execute(f"insert into users(full_name,email,phone_number,password)values{users_details}")
     conn.commit()
 
+def check_user_exists(email):
+    cur.execute("select * from users where email = %s ",(email,))
+    user = cur.fetchone()
+    return user
+
+
+"""
 # sales_per_product
 def sales_per_product():
     cur.execute(
@@ -93,6 +107,14 @@ def sales_per_product():
     return product_sales
 
 # sales_per_day
+def sales_per_day():
+    cur.execute(
+    select date(sales.created_at) as date, sum(products.selling_price * sales.quantity) as
+    total_sales from products inner join sales on sales.pid = products.id group by(date);
+    )
+
+    daily_sales = cur.fetchall()
+    return daily_sales
         
 # profit_per_product
 def profit_per_product():
@@ -105,6 +127,12 @@ def profit_per_product():
     return product_profit
     
 # profit_per_day
+def profit_per_day():
+    cur.execute(
+        select date(sales.created_at) as date, sum((products.selling_price - products.buying_price)* sales.quantity) as 
+        profit from sales join products on products.id = sales.pid group by(date);
+    )
+    daily_profit = cur.fetchall()
+    return daily_profit
 
-
-
+ """
