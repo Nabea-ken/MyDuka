@@ -1,9 +1,14 @@
-from flask import Flask, render_template, request, redirect, url_for,flash
+#Imports
+from functools import wraps
+from flask import Flask, render_template, request, redirect, url_for,flash,session
 from database import get_products,get_sales,insert_products,insert_sales,available_stock,fetch_stock,add_stock,check_user_exists,insert_users
-
+from flask_bcrypt import Bcrypt
 
 #Flask instance
 app = Flask(__name__)
+
+# Object instance of Bcrypt()
+bcrypt = Bcrypt(app)
 
 # Secret key - signs session data
 app.secret_key = 'qwertyuioplkjhgfdsazxcvbnm'
@@ -13,9 +18,17 @@ app.secret_key = 'qwertyuioplkjhgfdsazxcvbnm'
 def home():
     return render_template("index.html")
 
+def login_required(f):
+    @wraps(f)
+    def protected(*args,**kwargs):
+        if 'email' not in session:
+            return redirect(url_for('login'))
+        return f(*args,**kwargs)
+    return protected
 
 # Getting products
 @app.route('/products')
+@login_required
 def fetch_products():
     products = get_products()
 
@@ -110,8 +123,9 @@ def login():
         if not registered_user:
             flash("User with this email doesnt exist, Register",'danger')
         else:
-            if password == registered_user[-1]:
-                flash("Login successfull")
+            if bcrypt.check_password_hash(registered_user[-1],password):
+                flash("Login successfull",'success')
+                session['email'] = email
                 return redirect(url_for('dashboard'))
             else:
                 flash("Password incorrect!",'danger')
@@ -129,7 +143,8 @@ def register():
 
         existing_user = check_user_exists(email)
         if not existing_user:
-            new_user = (full_name,email,phone_number,password)
+            hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
+            new_user = (full_name,email,phone_number,hashed_password)
             insert_users(new_user)
             flash("User registered successfully",'success')
             return redirect(url_for('login'))

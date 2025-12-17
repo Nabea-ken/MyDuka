@@ -538,7 +538,6 @@ a) Message - the actual text feedback
 b) Category - broader class of messages grouped by type
 -> we use flash() imported from flask to display messages from flash messages 
 
-   
        <----GET----
 Client ----POST---> Server ----------- DB
                              psycopg2
