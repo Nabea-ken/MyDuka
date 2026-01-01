@@ -1,0 +1,12 @@
+@use 'variables';
+@use 'navbar';
+@use 'mixins';
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+.navbar {
+  background-color: var(--nav-bg);
+}

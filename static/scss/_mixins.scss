@@ -1,0 +1,27 @@
+// Flexbox center utility
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// Smooth hover transition
+@mixin smooth-hover {
+  transition: all 0.2s ease-in-out;
+}
+
+// Button base style
+@mixin button-base($bg, $color) {
+  background-color: $bg;
+  color: $color;
+  padding: 0.45rem 0.9rem;
+  border-radius: 6px;
+  font-weight: 500;
+  border: none;
+
+  @include smooth-hover;
+
+  &:hover {
+    background-color: darken($bg, 8%);
+  }
+}

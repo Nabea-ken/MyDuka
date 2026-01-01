@@ -1,0 +1,57 @@
+:root {
+  --bg-color: #f8f9fa;
+  --text-color: #1b1b1b;
+  --nav-bg: #ffffff;
+}
+
+/* [data-theme='dark'] {
+  --bg-color: #121212;
+  --text-color: #e0e0e0;
+  --nav-bg: #1e1e1e;
+} */
+/* Navbar container */
+.navbar {
+  font-family: "Segoe UI", sans-serif;
+  padding: 0.8rem 1.2rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+.navbar .navbar-brand {
+  font-weight: 700;
+  font-size: 1.4rem;
+  color: #2e7d32;
+  transition: all 0.2s ease-in-out;
+}
+.navbar .navbar-brand:hover {
+  color: rgb(32.2807017544, 87.7192982456, 35.0877192982);
+}
+.navbar .nav-link {
+  margin-right: 0.8rem;
+  font-weight: 500;
+  color: #1b1b1b;
+  position: relative;
+  transition: all 0.2s ease-in-out;
+}
+.navbar .nav-link:hover {
+  color: #2e7d32;
+}
+.navbar .nav-link.active {
+  color: #2e7d32;
+  border-bottom: 2px solid #2e7d32;
+}
+.navbar .navbar-toggler {
+  border: none;
+}
+.navbar .navbar-toggler:focus {
+  box-shadow: none;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+.navbar {
+  background-color: var(--nav-bg);
+}
+
+/*# sourceMappingURL=styles.css.map */

@@ -1,0 +1,52 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+
+/* Navbar container */
+.navbar {
+  font-family: $font-main;
+  padding: 0.8rem 1.2rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+
+  // Brand
+  .navbar-brand {
+    font-weight: 700;
+    font-size: 1.4rem;
+    color: $duka-green;
+
+    @include smooth-hover;
+
+    &:hover {
+      color: darken($duka-green, 10%);
+    }
+  }
+
+  // Nav links
+  .nav-link {
+    margin-right: 0.8rem;
+    font-weight: 500;
+    color: $duka-dark;
+    position: relative;
+
+    @include smooth-hover;
+
+    &:hover {
+      color: $duka-green;
+    }
+
+    &.active {
+      color: $duka-green;
+      border-bottom: 2px solid $duka-green;
+
+    }
+  }
+
+  // Toggler (mobile)
+  .navbar-toggler {
+    border: none;
+
+    &:focus {
+      box-shadow: none;
+    }
+  }
+}

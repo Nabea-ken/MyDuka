@@ -117,12 +117,12 @@ def dashboard():
     daily_profit = profit_per_day()
 
     product_names = [ i[0] for i in product_sales ]
-    sales_per_p = [ i[1] for i in product_sales ]
-    profit_per_p = [ i[1] for i in product_profit ]
+    sales_per_p = [ float(i[1]) for i in product_sales ]
+    profit_per_p = [ float(i[1]) for i in product_profit ]
 
-    date = [i[0] for i in daily_profit ]
-    sales_per_d = [ i[1] for i in daily_sales ]
-    profit_per_d = [ i[1] for i in daily_profit ]
+    date = [ str(i[0]) for i in daily_profit ]
+    sales_per_d = [ float(i[1]) for i in daily_sales ]
+    profit_per_d = [ float(i[1]) for i in daily_profit ]
 
     return render_template("dashboard.html", product_names=product_names, sales_per_p=sales_per_p, profit_per_p=profit_per_p,
     date=date, sales_per_d=sales_per_d, profit_per_d=profit_per_d)

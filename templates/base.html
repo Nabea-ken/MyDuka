@@ -8,6 +8,9 @@
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/2.3.5/css/dataTables.bootstrap5.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <script src="{{ url_for('static', filename='js/theme.js') }}"></script>
     <title>{% block title %} {% endblock %}</title>
 </head>
 
@@ -26,29 +29,41 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="/">Home</a>
+                                <a class="nav-link {% if request.path == '/' %}active{% endif %}" aria-current="page"
+                                    href="/">Home</a>
                             </li>
+                            <!--dark mode toggle-->
+                           <!--  <button id="themeToggle" class="btn btn-sm btn-outline-secondary">
+                                🌙
+                            </button> -->
+
                             <!-- session -->
                             {% if not session.email %}
                             <li class="nav-item">
-                                <a class="nav-link" href="/register">Register</a>
+                                <a class="nav-link {% if request.path == '/register' %}active{% endif %}"
+                                    href="/register">Register</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/login">Login</a>
+                                <a class="nav-link {% if request.path == '/login' %}active{% endif %}"
+                                    href="/login">Login</a>
                             </li>
                             {% else %}
 
                             <li class="nav-item">
-                                <a class="nav-link" href="/products">Product</a>
+                                <a class="nav-link {% if request.path == '/products' %}active{% endif %}"
+                                    href="/products">Product</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/sales">Sales</a>
+                                <a class="nav-link {% if request.path == '/sales' %}active{% endif %}"
+                                    href="/sales">Sales</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/stock">Stock</a>
+                                <a class="nav-link {% if request.path == '/stock' %}active{% endif %}"
+                                    href="/stock">Stock</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/dashboard">Dashboard</a>
+                                <a class="nav-link {% if request.path == '/dashboard' %}active{% endif %}"
+                                    href="/dashboard">Dashboard</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="/logout">Logout</a>
