@@ -7,12 +7,14 @@
   font-family: $font-main;
   padding: 0.8rem 1.2rem;
   border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  display: flex;
 
   // Brand
   .navbar-brand {
     font-weight: 700;
     font-size: 1.4rem;
     color: $duka-green;
+    margin-right: 3rem; // space between brand & links
 
     @include smooth-hover;
 
@@ -39,6 +41,14 @@
       border-bottom: 2px solid $duka-green;
 
     }
+  }
+
+  .navbar-collapse {
+    justify-content: center; // center links
+  }
+
+  .navbar-nav {
+    gap: 1.2rem; // space BETWEEN links
   }
 
   // Toggler (mobile)

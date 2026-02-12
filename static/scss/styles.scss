@@ -1,12 +1,45 @@
-@use 'variables';
+@use 'variables' as *;
 @use 'navbar';
+@use 'hero';
 @use 'mixins';
 
+// Global styles
 body {
+  font-family: $font-main;
   background-color: var(--bg-color);
   color: var(--text-color);
+  margin: 0;
+  padding: 0;
 }
 
-.navbar {
-  background-color: var(--nav-bg);
+.how-section {
+  background: #f8f9fa;
+
+  .step-card {
+    padding: 2rem;
+  }
+
+  .step-number {
+    width: 60px;
+    height: 60px;
+    background: $duka-green;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin: 0 auto;
+  }
 }
+
+.cta-section {
+  background: $duka-green;
+  color: white;
+
+  .btn-light {
+    font-weight: 600;
+  }
+}
+

@@ -2,9 +2,174 @@
 {% block title %} HOME {% endblock %}
 {% block content %}
 <div>
+    <!-- Hero section -->
     <div>
-        <p>This is the homepage</p>
+        <section class="hero-section py-5">
+            <div class="container py-5">
+                <div class="row align-items-center g-5">
+
+                    <!-- LEFT CONTENT -->
+                    <div class="col-lg-6 text-center text-lg-start">
+
+                        <span class="badge bg-success-subtle text-success mb-3 px-3 py-2">
+                            Simple • Fast • Reliable
+                        </span>
+
+                        <h1 class="display-4 fw-bold mb-3">
+                            Manage Your Duka <span class="text-success">Smarter</span>
+                        </h1>
+
+                        <p class="lead text-muted mb-4">
+                            Track stock in real-time, record sales instantly,
+                            and grow your business with powerful insights — all in one system.
+                        </p>
+
+                        {% if not session.email %}
+                        <div
+                            class="d-flex flex-column flex-sm-row gap-3 justify-content-center justify-content-lg-start">
+                            <a href="/register" class="btn btn-success btn-lg px-4">
+                                Start Free Today
+                            </a>
+                            <a href="/login" class="btn btn-outline-dark btn-lg px-4">
+                                Login
+                            </a>
+                        </div>
+                        {% else %}
+                        <a href="/dashboard" class="btn btn-success btn-lg px-4">
+                            Go to Dashboard →
+                        </a>
+                        {% endif %}
+
+                        <p class="text-muted small mt-4">
+                            No setup fees • Works on mobile & desktop
+                        </p>
+
+                    </div>
+
+                    <!-- RIGHT IMAGE -->
+                    <div class="col-lg-6 text-center">
+                        <img src="{{ url_for('static', filename='images/DukaHero.png') }}" class="img-fluid hero-img"
+                            alt="Dashboard preview">
+                    </div>
+
+                </div>
+            </div>
+        </section>
     </div>
+
+    <!-- Features Section -->
+    <div>
+        <section class="features-section py-5">
+            <div class="container text-center">
+
+                <h2 class="fw-bold mb-3">Everything You Need to Run Your Duka</h2>
+                <p class="text-muted mb-5">
+                    Powerful tools designed to simplify daily operations and grow your business.
+                </p>
+
+                <div class="row g-4">
+
+                    <div class="col-md-4">
+                        <div class="feature-card h-100">
+                            <div class="feature-icon mb-3">
+                                📦
+                            </div>
+                            <h5>Stock Management</h5>
+                            <p class="text-muted">
+                                Monitor inventory levels in real-time and avoid stockouts.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="feature-card h-100">
+                            <div class="feature-icon mb-3">
+                                💰
+                            </div>
+                            <h5>Sales Tracking</h5>
+                            <p class="text-muted">
+                                Record daily sales and analyze performance instantly.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="feature-card h-100">
+                            <div class="feature-icon mb-3">
+                                📊
+                            </div>
+                            <h5>Business Dashboard</h5>
+                            <p class="text-muted">
+                                Visual insights to help you make smarter decisions.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- How It Works Section (Trust Builder) -->
+    <div>
+        <section class="how-section py-5">
+            <div class="container text-center">
+
+                <h2 class="fw-bold mb-5">How It Works</h2>
+
+                <div class="row g-4">
+
+                    <div class="col-md-4">
+                        <div class="step-card">
+                            <div class="step-number">1</div>
+                            <h5 class="mt-3">Register</h5>
+                            <p class="text-muted">Create your account in seconds.</p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="step-card">
+                            <div class="step-number">2</div>
+                            <h5 class="mt-3">Add Products</h5>
+                            <p class="text-muted">Input your stock and pricing.</p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="step-card">
+                            <div class="step-number">3</div>
+                            <h5 class="mt-3">Record Sales</h5>
+                            <p class="text-muted">Track daily sales and profits easily.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Call-to-Action Section (Conversion Block) -->
+    <div>
+        <section class="cta-section text-center py-5">
+            <div class="container">
+                <h2 class="fw-bold mb-3">Ready to Grow Your Duka?</h2>
+                <p class="mb-4">Start managing your business today.</p>
+
+                {% if not session.email %}
+                <a href="/register" class="btn btn-light btn-lg px-4">
+                    Create Free Account
+                </a>
+                {% else %}
+                <a href="/dashboard" class="btn btn-light btn-lg px-4">
+                    Go to Dashboard
+                </a>
+                {% endif %}
+            </div>
+        </section>
+    </div>
+
+
 </div>
 
 {% endblock %}

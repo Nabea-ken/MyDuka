@@ -1,0 +1,61 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+// ================= HERO SECTION =================
+.hero-section {
+  background: linear-gradient(
+    135deg,
+    $duka-light 0%,
+    lighten($duka-green, 45%) 100%
+  );
+
+  padding: 5rem 0;
+
+  h1 {
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  .text-highlight {
+    color: $duka-green;
+  }
+
+  p {
+    color: #555;
+  }
+
+  // Buttons
+  .btn-duka {
+    @include button-base($duka-green, white);
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    border-radius: 8px;
+  }
+
+  .btn-outline-duka {
+    border: 1px solid $duka-green;
+    color: $duka-green;
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    background: transparent;
+
+    @include smooth-hover;
+
+    &:hover {
+      background-color: $duka-green;
+      color: white;
+    }
+  }
+
+  // Hero image
+  .hero-img {
+    max-height: 450px;
+    border-radius: 16px;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.08);
+    transition: transform 0.4s ease;
+
+    &:hover {
+      transform: translateY(-6px);
+    }
+  }
+}
